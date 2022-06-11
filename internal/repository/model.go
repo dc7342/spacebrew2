@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type TaskModel struct {
 	gorm.Model
-	ID          int    `gorm:"primaryKey"`
+	ID          int64  `gorm:"primaryKey"`
 	Open        bool   `gorm:"column:open"`
 	Title       string `gorm:"column:title"`
 	Description string `gorm:"column:description"`
-	Author      int    `gorm:"column:author"`
+	AuthorID    int64  `gorm:"column:author"`
 }
