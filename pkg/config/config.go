@@ -6,13 +6,39 @@ import (
 
 type Config struct {
 	Telegram struct {
-		Token   string
-		Timeout int
-		Channel string
+		Token           string
+		Timeout         int
+		ChannelUsername string
 	}
 
-	Bot struct {
-		Title string
+	Page struct {
+		TasksPerPage int
+	}
+
+	Text struct {
+		Title                string
+		WelcomeMessage       string
+		UnknownMessage       string
+		NewTaskName          string
+		NewDescriptionName   string
+		NewTaskDone          string
+		EditTaskChoice       string
+		EditDescription      string
+		EditName             string
+		Confirmation         string
+		ConfirmationNegative string
+		Done                 string
+	}
+
+	Button struct {
+		Menu            string
+		AllTasks        string
+		AddTask         string
+		Cancel          string
+		EditDescription string
+		EditTitle       string
+		Yes             string
+		No              string
 	}
 
 	DB struct {
