@@ -3,6 +3,8 @@ module github.com/je09/spacebrew2
 go 1.18
 
 require (
+	github.com/and3rson/telemux/v2 v2.0.2
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/spf13/viper v1.12.0
 	gorm.io/driver/postgres v1.3.7
 	gorm.io/gorm v1.23.5
