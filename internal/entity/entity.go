@@ -1,9 +1,9 @@
 package entity
 
 type Task struct {
-	ID          int
+	ID          int64
 	Open        bool
 	Title       string
 	Description string
-	Author      string
+	AuthorID    int64
 }
