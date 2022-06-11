@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/je09/spacebrew2/internal/repository"
 	"github.com/je09/spacebrew2/internal/service"
+	"github.com/je09/spacebrew2/internal/telegram"
 	"github.com/je09/spacebrew2/pkg/config"
 )
 
@@ -23,4 +24,8 @@ func main() {
 
 	repos := repository.NewRepository(db)
 	serv := service.NewService(repos)
+	bot := telegram.NewTelegram(serv, c)
+	if err := bot.Start(); err != nil {
+		panic(err)
+	}
 }
