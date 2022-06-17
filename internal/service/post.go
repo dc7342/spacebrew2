@@ -68,3 +68,20 @@ func (p *PostService) Pages(perPage int) (int64, error) {
 
 	return c / int64(perPage), nil
 }
+
+func (p *PostService) Page(title string, page int, perPage int) (string, error) {
+	tasks, err := p.repo.GetByPage(page, perPage)
+	if err != nil {
+		return "", err
+	}
+
+	text := title
+
+	for _, tt := range tasks {
+		if tt.Open {
+			text += fmt.Sprintf("%s – /e_%d, /c_%d", tt.Title, tt.ID, tt.ID)
+		}
+	}
+
+	return text, nil
+}

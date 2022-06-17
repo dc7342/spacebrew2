@@ -11,6 +11,7 @@ func (t *Telegram) initMux() {
 			tm.NewHandler(tm.IsCommandMessage(stateNewName), t.newTask),
 			tm.NewHandler(isEditCommand(), t.editTask),
 			tm.NewHandler(isCloseCommand(), t.closeTask),
+			tm.NewHandler(isPageCallback(), t.showTasks),
 		},
 		stateNewName: {
 			tm.NewHandler(tm.HasText(), t.newName),
@@ -50,6 +51,7 @@ func (t *Telegram) initMux() {
 		tm.NewHandler(tm.And(tm.IsPrivate(), tm.IsCommandMessage("start"), t.startCmd)),
 	}
 
+	// TODO: Error handler!
 	t.cnvs = tm.NewMux().AddHandler(tm.NewConversationHandler("menu", tm.NewLocalPersistence(), stateMap, def))
 	t.cmds = tm.NewMux().AddHandler(cmdHandler...)
 }

@@ -4,6 +4,7 @@ import (
 	tm "github.com/and3rson/telemux/v2"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/je09/spacebrew2/internal/entity"
+	"github.com/je09/spacebrew2/pkg/pagination"
 	"strconv"
 	"strings"
 )
@@ -145,9 +146,22 @@ func (t *Telegram) editDescription(u *tm.Update) {
 	t.bot.Send(msg)
 }
 
+// Show task init
 func (t *Telegram) showTasks(u *tm.Update) {
-	c, _ := t.services.Post.Pages(t.conf.Page.TasksPerPage)
+	current := 1
+	// Check if it has page.
+	if s := strings.Split(u.Message.Text, "_"); len(s) > 1 {
+		// TODO Handler int error
+		current, _ = strconv.Atoi(s[1])
+	}
 
+	c, _ := t.services.Post.Pages(t.conf.Page.TasksPerPage)
+	pages, _ := t.services.Post.Pages(int(c))
+	text, _ := t.services.Page(t.conf.Text.Title, current, t.conf.Page.TasksPerPage)
+	msg := tgbotapi.NewMessage(u.Message.Chat.ID, text)
+	paginator := pagination.NewPaginator(&msg)
+	paginator.Keyboard(current, int(pages))
+	t.bot.Send(msg)
 }
 
 func (t *Telegram) closeTask(u *tm.Update) {

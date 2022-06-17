@@ -15,3 +15,7 @@ func isEditCommand() tm.FilterFunc {
 func isCloseCommand() tm.FilterFunc {
 	return tm.And(tm.IsAnyCommandMessage(), tm.HasRegex("(/c_(\\d*))"))
 }
+
+func isPageCallback() tm.FilterFunc {
+	return tm.And(tm.IsCallbackQuery(), tm.HasRegex("(page_(\\d*))"))
+}

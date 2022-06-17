@@ -10,6 +10,7 @@ type Post interface {
 	Close(id int64) error
 	Text(task entity.Task) string
 	Pages(perPage int) (int64, error)
+	Page(title string, page int, perPage int) (string, error)
 }
 
 type Pin interface {
